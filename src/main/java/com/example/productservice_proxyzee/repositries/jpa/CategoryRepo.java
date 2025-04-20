@@ -1,6 +1,6 @@
-package com.example.productservice_proxyzee.repositries;
+package com.example.productservice_proxyzee.repositries.jpa;
 
-import com.example.productservice_proxyzee.models.Categories;
+import com.example.productservice_proxyzee.models.jpa.Categories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,7 @@
 package com.example.productservice_proxyzee.services;
 
 
-import com.example.productservice_proxyzee.dtos.ProductRequestDto;
-import com.example.productservice_proxyzee.models.Product;
-import org.springframework.http.ResponseEntity;
+import com.example.productservice_proxyzee.models.jpa.Product;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ public interface IProductService {
 
     List<Product> getAllProduct();
 
-    Product addNewProduct(ProductRequestDto productRequestDto);
+    Product addNewProduct(Product product);
 
-    Product updateProduct(int productId, ProductRequestDto productRequestDto);
+    Product updateProduct(int productId, Product product);
 }

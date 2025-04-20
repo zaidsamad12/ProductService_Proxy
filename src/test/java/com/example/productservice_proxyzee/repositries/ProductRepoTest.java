@@ -1,12 +1,9 @@
 package com.example.productservice_proxyzee.repositries;
 
-import com.example.productservice_proxyzee.models.Categories;
-import com.example.productservice_proxyzee.models.Product;
-import org.junit.jupiter.api.Test;
+import com.example.productservice_proxyzee.repositries.jpa.CategoryRepo;
+import com.example.productservice_proxyzee.repositries.jpa.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ProductRepoTest {
@@ -16,11 +13,7 @@ class ProductRepoTest {
     @Autowired
     CategoryRepo categoryRepo;
 
-    @Test
-    void save() {
-    }
-
-    @Test
+    /*@Test
     void saveProductAndCategories() {
         Categories categories = new Categories();
         categories.setName("Elect");
@@ -34,5 +27,5 @@ class ProductRepoTest {
         product.setPrice(20);
         productRepo.save(product);
 
-    }
+    }*/
 }

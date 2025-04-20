@@ -2,9 +2,8 @@ package com.example.productservice_proxyzee.services;
 
 import com.example.productservice_proxyzee.clients.fakestore.client.FakeStoreClient;
 import com.example.productservice_proxyzee.clients.fakestore.dto.FakeStoreDto;
-import com.example.productservice_proxyzee.dtos.ProductRequestDto;
-import com.example.productservice_proxyzee.models.Categories;
-import com.example.productservice_proxyzee.models.Product;
+import com.example.productservice_proxyzee.models.jpa.Categories;
+import com.example.productservice_proxyzee.models.jpa.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -19,6 +18,7 @@ public class FakeStoreProductService implements IProductService {
     FakeStoreClient fakeStoreClient;
 
     @Override
+    //@Cacheable(value = "products", key = "#productID")
     public Product getSingleProduct(Long productID){
         Product product = null;
         try {
@@ -48,9 +48,9 @@ public class FakeStoreProductService implements IProductService {
     }
 
     @Override
-    public Product addNewProduct(ProductRequestDto productRequestDto) {
+    public Product addNewProduct(Product product) {
         try{
-            FakeStoreDto fakeStoreRequestDto = getFakeStoreDto(productRequestDto);
+            FakeStoreDto fakeStoreRequestDto = getFakeStoreDto(product);
             FakeStoreDto fakeStoreResponseDto = fakeStoreClient.addNewProduct(fakeStoreRequestDto);
             return getProduct(fakeStoreResponseDto);
         } catch (Exception e) {
@@ -59,9 +59,9 @@ public class FakeStoreProductService implements IProductService {
     }
 
     @Override
-    public Product updateProduct(int productId, ProductRequestDto productRequestDto) {
+    public Product updateProduct(int productId, Product product) {
         try{
-            FakeStoreDto fakeStoreRequestDto = getFakeStoreDto(productRequestDto);
+            FakeStoreDto fakeStoreRequestDto = getFakeStoreDto(product);
             FakeStoreDto fakeStoreResponseDto = fakeStoreClient.updateProduct(productId, fakeStoreRequestDto);
             return getProduct(fakeStoreResponseDto);
 
@@ -81,14 +81,14 @@ public class FakeStoreProductService implements IProductService {
         return product;
     }
 
-    private FakeStoreDto getFakeStoreDto(ProductRequestDto productRequestDto) {
+    private FakeStoreDto getFakeStoreDto(Product product) {
         FakeStoreDto fakeStoreDto = new FakeStoreDto();
-        fakeStoreDto.setId(productRequestDto.getId());
-        fakeStoreDto.setTitle(productRequestDto.getTitle());
-        fakeStoreDto.setPrice(productRequestDto.getPrice());
-        fakeStoreDto.setCategory(productRequestDto.getCategory());
-        fakeStoreDto.setDescription(productRequestDto.getDescription());
-        fakeStoreDto.setImage(productRequestDto.getImage());
+        fakeStoreDto.setId(product.getId());
+        fakeStoreDto.setTitle(product.getTitle());
+        fakeStoreDto.setPrice(product.getPrice());
+        fakeStoreDto.setCategory(product.getCategory().toString());
+        fakeStoreDto.setDescription(product.getDescription());
+        fakeStoreDto.setImage(product.getImageUrl());
         return fakeStoreDto;
     }
 }
